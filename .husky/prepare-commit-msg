@@ -1,0 +1,11 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Automatically adds branch name to every commit message.
+
+# Succeed on all merge messages, as evidenced by MERGE_MSG existing
+[ -f $GIT_DIR/MERGE_MSG ] && exit 0
+
+IDENTIFIER=$(git symbolic-ref -q HEAD | cut -d / -f 3) 
+
+echo "$IDENTIFIER"': '$(cat "$1") > "$1"
